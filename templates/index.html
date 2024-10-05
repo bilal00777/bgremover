@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Background Remover</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Remove Background from Image</h1>
+        
+        <form action="/" method="POST" enctype="multipart/form-data" id="uploadForm">
+            <label for="image">Upload your image:</label>
+            <input type="file" name="image" id="image" required>
+            <button type="submit">Remove Background</button>
+        </form>
+        
+        {% if uploaded_image %}
+        <div class="image-section">
+            <h2>Uploaded Image:</h2>
+            <img src="{{ uploaded_image }}" alt="Uploaded Image" class="display-image">
+        </div>
+        {% endif %}
+
+        {% if output_image %}
+        <div class="image-section">
+            <h2>Processed Image:</h2>
+            <img src="{{ output_image }}" alt="Processed Image" class="display-image">
+            <br><br>
+            <a href="{{ url_for('download_file', filename=output_filename) }}" class="download-btn" download>Download Processed Image</a>
+            <br><br>
+            <button onclick="resetForm()" class="upload-new-btn">Upload New File</button>
+        </div>
+        {% endif %}
+    </div>
+
+    <script>
+        function resetForm() {
+            // Reload the page to reset the form
+            window.location.href = "/";
+        }
+    </script>
+</body>
+</html>
